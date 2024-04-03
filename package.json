@@ -1,0 +1,26 @@
+{
+  "name": "sentry-hapi-exp",
+  "version": "0.0.0",
+  "description": "Just taking Sentry's hapi integration for a spin",
+  "main": "index.mjs",
+  "scripts": {
+    "test-all": "npm run test -- sync && npm run summary -- debug.sync.json && npm run test -- async && npm run summary -- debug.async.json && npm run test -- async-context && npm run summary -- debug.async-context.json",
+    "test": "node --env-file=.env index.mjs",
+    "summary": "jq '{ event: [ .event | ({ exception: (.exception | .values[].value) }),  { transaction: .tags.transaction },  { breadcrumbs: .breadcrumbs | map({message})  } ] }'",
+    "clean": "rm debug.*.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dschom/sentry-hapi-exp.git"
+  },
+  "author": "dschomburg@mozilla.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dschom/sentry-hapi-exp/issues"
+  },
+  "homepage": "https://github.com/dschom/sentry-hapi-exp#readme",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.7",
+    "@sentry/node": "^7.109.0"
+  }
+}
